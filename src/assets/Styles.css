@@ -1,0 +1,24 @@
+@font-face {
+    font-family: ggsans;
+    src: url(../assets/ggsansFont/Web/Variable/ggsansvf-VF.woff2);
+    font-weight: 100 900;
+}
+#DiscordButtonBG {
+    background-color: rgb(99, 101, 242);
+    display: inline-flex;
+    flex: content;
+}
+#DiscordButtonText {
+    font-family: ggsans;
+    flex: content;
+    display: flex;
+    text-align: center;
+    font-size: large;
+}
+body{
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    padding: 5% 5%;
+    
+}
