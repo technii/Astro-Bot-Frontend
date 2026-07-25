@@ -1,20 +1,8 @@
 ---
-export const prerender = false
+
 import {Font} from "astro:assets";
 import "../assets/Styles.css";
-import RedirectLayout from "../layouts/RedirectLayout.astro";
 
-const access_token = Astro.url.searchParams.get("access_token") || ""
-const token_type = Astro.url.searchParams.get("token_type") || ""
-const expires_in = Astro.url.searchParams.get("expires_in") || ""
-const MaxAgeInt = Number(expires_in)
-const refresh_token = Astro.url.searchParams.get("refresh_token") || ""
-const scope = Astro.url.searchParams.get("scope") || ""
-const cookieoptions = {path: "/",httpOnly: true,maxAge : MaxAgeInt}
-Astro.cookies.set("access_token",access_token,cookieoptions)
-Astro.cookies.set("scope",scope,cookieoptions)
-Astro.cookies.set("refresh_token",refresh_token,cookieoptions)
-Astro.cookies.set("token_type",token_type,cookieoptions)
 ---
 
 
