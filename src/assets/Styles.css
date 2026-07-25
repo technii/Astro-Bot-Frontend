@@ -15,6 +15,15 @@
     text-align: center;
     font-size: large;
 }
+
+#Discordhref {
+    font-family: ggsans;
+    flex: content;
+    display: flex;
+    text-align: center;
+    font-size: large;
+}
+
 body{
     margin: 0;
     height: 100%;
