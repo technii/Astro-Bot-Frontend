@@ -9,10 +9,11 @@ const expires_in = Astro.url.searchParams.get("expires_in") || ""
 const MaxAgeInt = Number(expires_in)
 const refresh_token = Astro.url.searchParams.get("refresh_token") || ""
 const scope = Astro.url.searchParams.get("scope") || ""
-Astro.cookies.set("access_token",access_token,{maxAge : MaxAgeInt})
-Astro.cookies.set("scope",scope,{maxAge : MaxAgeInt})
-Astro.cookies.set("refresh_token",refresh_token,{maxAge : MaxAgeInt})
-Astro.cookies.set("token_type",token_type,{maxAge : MaxAgeInt})
+const cookieoptions = {path: "/",httpOnly: true,maxAge : MaxAgeInt}
+Astro.cookies.set("access_token",access_token,cookieoptions)
+Astro.cookies.set("scope",scope,cookieoptions)
+Astro.cookies.set("refresh_token",refresh_token,cookieoptions)
+Astro.cookies.set("token_type",token_type,cookieoptions)
 ---
 
 
