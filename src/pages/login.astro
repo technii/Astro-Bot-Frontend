@@ -1,7 +1,11 @@
 ---
 export const prerender = false
 
+import { string } from "astro:schema";
 import RedirectLayout from "../layouts/RedirectLayout.astro";
+class UserData {
+    constructor(public id: string,public username : string,public global_name:string,public avatar: string,public accent_color: number){}
+}
 
 const access_token = Astro.url.searchParams.get("access_token") || ""
 const token_type = Astro.url.searchParams.get("token_type") || ""
@@ -14,10 +18,14 @@ Astro.cookies.set("access_token",access_token,cookieoptions)
 Astro.cookies.set("scope",scope,cookieoptions)
 Astro.cookies.set("refresh_token",refresh_token,cookieoptions)
 Astro.cookies.set("token_type",token_type,cookieoptions)
-
+const bearertokencookie = Astro.cookies.get("access_token") || 0
+const bearerstring = new String("Bearer ")
+const bearertokenauth =  bearerstring.concat(bearertokencookie.toString())
+const userdata = await fetch("https://discord.com/api/v10/oauth2/@me", {method:"GET",headers:{"Authorization": bearertokenauth}})
+//const userdatainsance = new UserData(userdata.user.id,userdata.user.id,userdata.user.id,userdata.user.id,userdata.user.id)
 
 ---
 
 <RedirectLayout>
-
+    <a> {JSON.stringify(userdata)}   {bearertokenauth} </a>
 </RedirectLayout>
