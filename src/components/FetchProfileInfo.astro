@@ -9,7 +9,8 @@ const userdata = await fetch("api.dizzybot.online/getprofiledata", {
         token:bearertokencookie
     })
 })
+const userdatajson = await userdata.json()
 ---
 
 
-<div>{userdata}</div>
+<div>{userdatajson}</div>
