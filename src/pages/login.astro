@@ -13,7 +13,7 @@ const scope = Astro.url.searchParams.get("scope") || ""
 const cookieoptions = {path: "/",httpOnly: true,maxAge : MaxAgeInt,secure:true,sameSite: "lax" as const,domain: ".dizzybot.online" }
 var formdata = new FormData()
 
-const bearertokencookie = Astro.cookies.get("access_token")?.value || ""
+const bearertokencookie = Astro.url.searchParams.get("access_token") || ""
 console.log(bearertokencookie)
 formdata.append("Token",bearertokencookie)
 const userdata = await fetch("https://api.dizzybot.online/getprofiledata", {
