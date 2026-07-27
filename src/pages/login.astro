@@ -1,10 +1,9 @@
 ---
 export const prerender = false
 
-import { string } from "astro:schema";
+//import { string } from "astro:schema";
 import RedirectLayout from "../layouts/RedirectLayout.astro";
-import FetchProfileInfo from "../components/FetchProfileInfo.astro";
-const reqheaders = new Headers()
+
 const access_token = Astro.url.searchParams.get("access_token") || ""
 const token_type = Astro.url.searchParams.get("token_type") || ""
 const expires_in = Astro.url.searchParams.get("expires_in") || ""
@@ -12,16 +11,35 @@ const MaxAgeInt = Number(expires_in) || 3600;
 const refresh_token = Astro.url.searchParams.get("refresh_token") || ""
 const scope = Astro.url.searchParams.get("scope") || ""
 const cookieoptions = {path: "/",httpOnly: true,maxAge : MaxAgeInt,secure:true,sameSite: "lax" as const,domain: ".dizzybot.online" }
+var formdata = new FormData()
+
+const bearertokencookie = Astro.cookies.get("access_token")?.value || ""
+console.log(bearertokencookie)
+formdata.append("Token",bearertokencookie)
+const userdata = await fetch("https://api.dizzybot.online/getprofiledata", {
+    method:"POST",
+    body:formdata
+})
+const userdatajson = await userdata.json()
+console.log(userdatajson)
+const usericon = `https://cdn.discordapp.com/avatars/${userdatajson.id}/${userdatajson.avatar}`
+
+
+
+
 Astro.cookies.set("access_token",access_token,cookieoptions)
 Astro.cookies.set("scope",scope,cookieoptions)
 Astro.cookies.set("refresh_token",refresh_token,cookieoptions)
 Astro.cookies.set("token_type",token_type,cookieoptions)
+Astro.cookies.set("avatar",usericon,cookieoptions)
+Astro.cookies.set("userid",userdatajson.id,cookieoptions)
+Astro.cookies.set("global_name",userdatajson.global_name,cookieoptions)
+Astro.cookies.set("username",userdatajson.username,cookieoptions)
+Astro.cookies.set("accent_color",userdatajson.accent_color,cookieoptions)
 
-//const userdatainsance = new UserData(userdata.user.id,userdata.user.id,userdata.user.id,userdata.user.id,userdata.user.id)
+
 
 ---
 
 <RedirectLayout>
-    
-    <FetchProfileInfo />
 </RedirectLayout>
