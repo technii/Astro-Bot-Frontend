@@ -1,0 +1,15 @@
+---
+import { json } from 'astro:schema'
+import '../assets/Styles.css'
+
+const bearertokencookie = Astro.cookies.get("access_token")?.value || ""
+const userdata = await fetch("api.dizzybot.online/getprofiledata", {
+    method:"GET",
+    body:JSON.stringify({
+        token:bearertokencookie
+    })
+})
+---
+
+
+<div>{userdata}</div>
