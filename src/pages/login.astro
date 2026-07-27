@@ -18,7 +18,7 @@ Astro.cookies.set("access_token",access_token,cookieoptions)
 Astro.cookies.set("scope",scope,cookieoptions)
 Astro.cookies.set("refresh_token",refresh_token,cookieoptions)
 Astro.cookies.set("token_type",token_type,cookieoptions)
-const bearertokencookie = Astro.cookies.get("access_token") || 0
+const bearertokencookie = Astro.cookies.get("access_token")?.value || ""
 const bearerstring = new String("Bearer ")
 const bearertokenauth =  bearerstring.concat(bearertokencookie.toString())
 const userdata = await fetch("https://discord.com/api/v10/oauth2/@me", {method:"GET",headers:{"Authorization": bearertokenauth}})
