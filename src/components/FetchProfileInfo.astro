@@ -1,13 +1,15 @@
 ---
 import { json } from 'astro:schema'
 import '../assets/Styles.css'
+import { fontProviders } from 'astro/config'
+var formdata = new FormData()
 
 const bearertokencookie = Astro.cookies.get("access_token")?.value || ""
-const userdata = await fetch("api.dizzybot.online/getprofiledata", {
-    method:"GET",
-    body:JSON.stringify({
-        token:bearertokencookie
-    })
+console.log(bearertokencookie)
+formdata.append("Token",bearertokencookie)
+const userdata = await fetch("https://api.dizzybot.online/getprofiledata", {
+    method:"POST",
+    body:formdata
 })
 const userdatajson = await userdata.json()
 ---
